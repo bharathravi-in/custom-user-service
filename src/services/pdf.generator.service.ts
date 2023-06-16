@@ -9,7 +9,10 @@ export class PDFService {
 
   async getPdf(url: string): Promise<IPDFResponse> {
     try {
-      const browser = await puppeteer.launch({ headless: "new" });
+      const browser = await puppeteer.launch({ headless: "new", args: [
+            "--no-sandbox",
+            "--disable-gpu",
+        ] });
       const page = await browser.newPage();
       await page.goto(url, { waitUntil: "networkidle2" });
 
