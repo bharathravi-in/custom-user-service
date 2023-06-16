@@ -17,6 +17,10 @@ import { AuthModule } from './auth/auth.module';
 import { ApiModule } from './api/api.module';
 import got from 'got/dist/source';
 import { TerminusModule } from '@nestjs/terminus';
+import { EventsController } from './controllers/events.controller';
+import { PdfController } from './controllers/pdf.controller';
+import { LoggerService } from './services/logger.service';
+import { PDFService } from './services/pdf.generator.service';
 
 const gupshupFactory = {
   provide: 'GupshupService',
@@ -53,7 +57,7 @@ const otpServiceFactory = {
     ApiModule,
     TerminusModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, EventsController, PdfController],
   providers: [
     AppService,
     FusionauthService,
@@ -68,6 +72,8 @@ const otpServiceFactory = {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
+    LoggerService,
+    PDFService
   ],
 })
 export class AppModule {}
