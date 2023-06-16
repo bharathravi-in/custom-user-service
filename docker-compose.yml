@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  web:
+    image: user-service-2:latest
+    env_file:
+      - .env
+    ports:
+      - '3003:3003'
+    networks:
+      - user-gateway
+
+networks:
+  user-gateway:
+    driver: bridge
