@@ -17,6 +17,8 @@ COPY prisma ./prisma/
 COPY keys ./keys/
 COPY logs ./logs/
 COPY pdf ./pdf/
+COPY .puppeteerrc.cjs ./
+COPY puppeteer-cache ./puppeteer-cache/
 
 # Install app dependencies
 RUN yarn install
@@ -36,6 +38,8 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/keys ./keys
 COPY --from=builder /app/logs ./logs
 COPY --from=builder /app/pdf ./pdf
+COPY --from=builder /app/.puppeteerrc.cjs ./.puppeteerrc.cjs
+COPY --from=builder /app/puppeteer-cache ./puppeteer-cache
 
 EXPOSE 3003
 CMD [ "npm", "run", "start:prod" ]
